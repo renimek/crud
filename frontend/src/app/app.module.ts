@@ -20,13 +20,20 @@ import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DataService } from './data.service';
+import { RegisterService } from './register/register.service';
+import { LoginService} from './login/login.service';
+import { AuthService} from './auth.service';
 import { AddnewComponent } from './addnew/addnew.component';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddnewComponent
+    AddnewComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
     MatButtonModule,
     MatCheckboxModule
   ],
-  providers: [DataService],
+  providers: [DataService, RegisterService, LoginService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

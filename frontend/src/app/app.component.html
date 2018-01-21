@@ -2,7 +2,10 @@
 
 
 <mat-toolbar>
-  <!--<span style="flex: 1 1 auto"></span>-->
-  <button mat-button routerLink="/EquipmentCalculator">My Equipment</button>
+  <button *ngIf="authService.logged"mat-button routerLink="/equipmentCalculator">My Equipment</button>
+  <button  *ngIf="!authService.logged"mat-button routerLink="/register">Register</button>
+  <button  *ngIf="!authService.logged"mat-button routerLink="/login">Login</button>
+  <span style="flex: 1 1 auto"></span>
+  <button *ngIf="authService.logged"mat-button (click)="authService.logout()">LogOut</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

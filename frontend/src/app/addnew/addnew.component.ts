@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service'
-
+import { AuthService} from '../auth.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http'
 
 @Component({
   selector: 'app-addnew',
@@ -31,8 +33,7 @@ export class AddnewComponent implements OnInit {
   int = 0;
   error;
   equipError;
-  constructor(private dataService: DataService) {
-  }
+  constructor(private dataService: DataService, private authService: AuthService, private router: Router, private http: Http) {}
   equip(item){
     let found = false;
     for(let i = 0; i < this.equipped.length; i++) {
@@ -65,7 +66,7 @@ export class AddnewComponent implements OnInit {
   }
 
   addItem() {
-    console.log(this.itemData);
+
     if (this.itemData.name !== '' && this.itemData.str !== '' && this.itemData.int !== '' && this.itemData.agi !== '' && this.itemData.type !== '') {
       this.error = null;
       this.dataService.addItem(this.itemData);
@@ -84,5 +85,11 @@ export class AddnewComponent implements OnInit {
     this.dataService.getPendants();
     this.dataService.getRings();
     this.dataService.getShoulders();
+    this.authService.validate();
+    this.http.get('http://localhost:3000/').subscribe(res => {
+      if(res['_body'] !== 'logged') {
+        this.router.navigateByUrl('/')
+      }
+    });
   }
 }
